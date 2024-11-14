@@ -1,12 +1,12 @@
 # Why
-This repository contains code and steps to reproduce a segmentation fault in the node [ODBC library](https://www.npmjs.com/package/odbc). 
+This repository contains code and steps to reproduce a segmentation fault in the node [ODBC library](https://www.npmjs.com/package/odbc). The issue this is reported with can be found in the [node-ODBC Project](URL Here)
 
 # Steps
 run the following command in this project to build the agent and start up a database to attempt to connect to.
 ```bash
-git clone {URL}
+git clone https://github.com/natefabian18/ODBCCrash
 
-cd odbcCrash
+cd ODBCCrash
 
 docker compose up -d
 ```
@@ -15,7 +15,7 @@ The agent container will continuously try to connect and crash due to a seg faul
 ## gdb Debugger
 run the following command to run an interactive terminal once the database is running. Once in the gdb debugger use the command `r` to run the application and dump the following logs. This log was generated on 11/14/2024 running `Docker version 27.3.1, build ce12230` under `Linux Mint 21.3`
 ```bash
-docker container run --rm -it --network odbccrash_default test gdb --args node willCrash.js
+docker container run --rm -it --network odbccrash_default $(docker build -q .) gdb --args node willCrash.js
 ```
 
 ```LOG
