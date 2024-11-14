@@ -1,0 +1,32 @@
+services:
+  db:
+    restart: unless-stopped
+    image: mcr.microsoft.com/mssql/server:latest
+    logging:
+      driver: json-file
+      options:
+        max-size: 1024m
+    environment:
+      - MSSQL_AGENT_ENABLED=True
+      - MSSQL_PID=${MSSQL_PID:-Developer}
+      - TZ=${TZ:-America/New_York}
+      - MSSQL_SA_PASSWORD=DATABASE_PASSWORD1!
+      - ACCEPT_EULA=true
+    ports:
+      - 1433:1433
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+  
+  agent:
+    restart: unless-stopped
+    build: # "context" and "dockerfile" fields have to be under "build"
+      context: .
+      dockerfile: ./Dockerfile
+    logging:
+      driver: json-file
+      options:
+        max-size: 1024m
+    environment:
+      - TZ=${TZ:-America/New_York}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
