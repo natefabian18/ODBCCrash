@@ -13,7 +13,11 @@ docker compose up -d
 The agent container will continuously try to connect and crash due to a seg fault. 
 
 ## gdb Debugger
-run the following command to run an interactive terminal. Once in the gdb debugger use the command `r` to run the application and dump the following logs. This log was generated on 11/14/2024 running `Docker version 27.3.1, build ce12230` under `Linux Mint 21.3`
+run the following command to run an interactive terminal once the database is running. Once in the gdb debugger use the command `r` to run the application and dump the following logs. This log was generated on 11/14/2024 running `Docker version 27.3.1, build ce12230` under `Linux Mint 21.3`
+```bash
+docker container run --rm -it --network odbccrash_default test gdb --args node willCrash.js
+```
+
 ```LOG
 GNU gdb (Debian 13.1-3) 13.1
 Copyright (C) 2023 Free Software Foundation, Inc.
